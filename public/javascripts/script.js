@@ -24,15 +24,18 @@ function removeEmpty() {
 }
 
 function initialize() {
-  content = []
-  currentPage = 1
   const quantity = document.getElementById("quantity").value
   const type = document.getElementById("dropdown").value
   if (!type) return
   if (!quantity || isNaN(quantity)) {
     document.getElementById("quantity").classList.add("empty")
     return
+  } else if (quantity <= 0) {
+    alert("Please enter a quantity greater than zero")
+    return
   } else {
+    content = []
+    currentPage = 1
     maxPage = Math.ceil(quantity / 3)
     document.getElementById("items").classList.remove("initial")
     for (let i = 0; i < quantity; i++) {
@@ -46,11 +49,10 @@ function populatePage() {
   let start = (currentPage - 1) * 3
   let page = content.slice(start, start + 3)
   let pageContent = ""
-  const leftElement = document.getElementById('left')
-  const rightElement = document.getElementById('right')
+  const leftElement = document.getElementById("left")
+  const rightElement = document.getElementById("right")
   for (let i = 0; i < page.length; i++) {
-    pageContent +=
-      `
+    pageContent += `
     <div class="item">
       <div class="index">${start + i + 1}</div>
       <div class="content">Item ${page[i]}</div>
@@ -61,8 +63,8 @@ function populatePage() {
   document.getElementById("items").innerHTML = pageContent
 
   // Disable pagination links when necessary
-  rightElement.classList.toggle('disabled', currentPage + 1 > maxPage)
-  leftElement.classList.toggle('disabled', currentPage - 1 < 1)
+  rightElement.classList.toggle("disabled", currentPage + 1 > maxPage)
+  leftElement.classList.toggle("disabled", currentPage - 1 < 1)
 }
 
 function leftPagination() {
