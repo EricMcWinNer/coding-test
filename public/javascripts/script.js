@@ -25,6 +25,7 @@ function removeEmpty() {
 
 function initialize() {
   content = []
+  currentPage = 1
   const quantity = document.getElementById("quantity").value
   const type = document.getElementById("dropdown").value
   if (!type) return
